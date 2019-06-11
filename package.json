@@ -1,0 +1,14 @@
+{
+  "name": "unveriboot",
+  "version": "1.0.0",
+  "description": "unveriboot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Seth Hilder",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
+}
