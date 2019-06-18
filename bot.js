@@ -48,7 +48,6 @@ client.on('message', message => {
 										pics = []
 										message.attachments.forEach(element => {
 											pics.push(element.url)
-											console.log(pics)
 										});
 										publicShameChannel.send(new Discord.RichEmbed().setTitle('Checkout this fool who didn\'t respect tags').setColor('RANDOM').attachFiles(pics)).then(() => message.delete())
 									}
