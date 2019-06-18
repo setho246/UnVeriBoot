@@ -89,7 +89,7 @@ client.on('message', message => {
 						message.channel.send('This channel is now the public shaming channel, all mod approved messages will be sent here')
 						break
 					default:
-						message.channel.send("Unknown command, use either bstart or bstop")
+						message.channel.send("Unknown command, use b!start, b!public, or b!stop")
 						break;
 				}
 
