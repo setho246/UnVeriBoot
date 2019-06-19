@@ -4,6 +4,8 @@ var modMailChannel = null
 var publicShameChannel = null
 
 client.on('ready', () => {
+	modMailChannel = client.channels.get(process.env.MOD_MAIL)
+	publicShameChannel = client.channels.get(process.env.PUBLIC_SHAME)
 	console.log('These boots were made for bootin`');
 });
 
@@ -13,10 +15,8 @@ const filter = (reaction, user) => {
 
 client.on('message', message => {
 	if (message.author != client.user) { //Stop the bot replying to itself, we dont want it going crazy
-
-
 		if (message.channel.type === 'dm') { //If the message is a DM, handle the complaint
-			if (modMailChannel === null) { //Bot hasn't been started yet
+			if (modMailChannel === null || modMailChannel === undefined) { //Bot hasn't been started yet
 				message.channel.send("This bot is temporarily down for maintenance")
 			} else {
 				var links = []
@@ -63,45 +63,7 @@ client.on('message', message => {
 			}
 			return
 		}
-
-		found = message.member.roles.find(function (role) { //Find the role with the correct name
-			return role.name === 'Co-Owners' || role.name === 'School Board'
-		});
-
-		if ((message.guild !== null) && (message.content.startsWith('b!'))) {
-			if (found) {
-				switch (message.content.toUpperCase()) {
-					case 'B!START':
-						modMailChannel = message.channel
-						message.channel.send("Starting bot in this, all complaints will come here. To turn off, use command bstop")
-						break;
-					case 'B!STOP':
-						if (modMailChannel === null) {
-							message.channel.send("The bot isn't running yet silly")
-						} else if (message.channel === modMailChannel) {
-							modMailChannel = null
-							publicShameChannel = null
-							message.channel.send("Bot disabled, to restart use command bstart")
-						}
-						break;
-					case 'B!PUBLIC':
-						publicShameChannel = message.channel
-						message.channel.send('This channel is now the public shaming channel, all mod approved messages will be sent here')
-						break
-					default:
-						message.channel.send("Unknown command, use b!start, b!public, or b!stop")
-						break;
-				}
-
-				if (message.content.indexOf('b!prune') == 0) {
-					message.channel.bulkDelete(parseInt(message.content.slice(8)))
-				}
-			} else {
-				message.channel.send("You dont have required role")
-			}
-		}/**/
 	}
-
 })
 
 client.login(process.env.BOT_TOKEN);
