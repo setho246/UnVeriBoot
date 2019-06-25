@@ -73,8 +73,9 @@ const getUnverfiedUsersFilter = (user) => {
 function purgeOld() {
 	var members = client.guilds.get(525423041614839820).members
 	members = members.filter(getUnverfiedUsersFilter)
-
+	console.log("sending members")
 	modMailChannel.send(members)
+	console.log("members sent")
 }
 
 client.login(process.env.BOT_TOKEN);
