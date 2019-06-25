@@ -67,7 +67,7 @@ client.on('message', message => {
 })
 
 const getUnverfiedUsersFilter = (user) => {
-	return user.roles.has(525448406273884162);
+	return user.roles.has('525448406273884162');
 }
 
 function purgeOld() {
