@@ -4,12 +4,13 @@ var modMailChannel = null
 var publicShameChannel = null
 
 client.on('ready', () => {
+	purgeOld()
 	modMailChannel = client.channels.get(process.env.MOD_MAIL)
 	publicShameChannel = client.channels.get(process.env.PUBLIC_SHAME)
 	console.log('These boots were made for bootin`');
 });
 
-const filter = (reaction, user) => {
+const emojiReactFilter = (reaction, user) => {
 	return ['👀', '🚫'].includes(reaction.emoji.name) && user.id !== client.user.id;
 };
 
@@ -39,7 +40,7 @@ client.on('message', message => {
 							message.react('👀')
 							message.react('🚫')
 
-							message.awaitReactions(filter, { max: 1 }).then(collected => {
+							message.awaitReactions(emojiReactFilter, { max: 1 }).then(collected => {
 								var reaction = collected.first()
 								if (reaction.emoji.name === '👀') {
 									if (publicShameChannel === null) {
@@ -61,9 +62,19 @@ client.on('message', message => {
 				}
 				message.channel.send("Your report has successfully been recieved")
 			}
-			return
 		}
 	}
 })
+
+const getUnverfiedUsersFilter = (user) => {
+	return user.roles.has(525448406273884162);
+}
+
+function purgeOld() {
+	var members = client.guilds.get(525423041614839820).members
+	members = members.filter(getUnverfiedUsersFilter)
+
+	modMailChannel.send(members)
+}
 
 client.login(process.env.BOT_TOKEN);
