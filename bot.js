@@ -4,9 +4,9 @@ var modMailChannel = null
 var publicShameChannel = null
 
 client.on('ready', () => {
-	purgeOld()
 	modMailChannel = client.channels.get(process.env.MOD_MAIL)
 	publicShameChannel = client.channels.get(process.env.PUBLIC_SHAME)
+	purgeOld()
 	console.log('These boots were made for bootin`');
 });
 
