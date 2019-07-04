@@ -67,11 +67,13 @@ client.on('message', message => {
 })
 
 const getUnverfiedUsersFilter = (user) => {
-	return user.roles.has('525448406273884162');
+	if(user.roles.has('525448406273884162'){
+		return user;
+	}
 }
 
 function purgeOld() {
-	var members = client.guilds.get('525423041614839820').members
+	var members = client.guilds.get('525448406273884162').members
 	members = members.filter(getUnverfiedUsersFilter)
 	console.log("sending members")
 	modMailChannel.send(members)
