@@ -64,14 +64,18 @@ client.on('message', message => {
 	}
 })
 
+client.on('guildMemberRemove', member => {
+	
+})
+
 /**
  * This method kicks any guildMembers with the unverified role who joined more than a week ago.
  */
 function purgeOld() {
 	let d = new Date();
 	if(d.getUTCDay() === 1) { //only kick on a monday
-		var server = client.guilds.get('525423041614839820')
-		var members = server.roles.get('525448406273884162').members.map(m => m) //Builds array of all unverified
+		var server = client.guilds.get(process.env.SERVER_ID)
+		var members = server.roles.get(process.env.UNVERI_ID).members.map(m => m) //Builds array of all unverified
 
 		var filtered = members.filter(function (member) {	//Build array of all unverified who are more than a week old
 			return Date.now() - 604800000 > member.joinedTimestamp
@@ -80,7 +84,7 @@ function purgeOld() {
 		filtered.forEach(member => { //Kicks all of the filtered members
 			member.kick()
 		});
-		server.channels.get('525433131701108756').send(new Discord.RichEmbed()
+		server.channels.get(process.env.KICK_REPORT).send(new Discord.RichEmbed()
 												.setTitle('Weekly Boot').setColor('RED')
 												.setDescription("Just kicked " + a + " unverified members"))
 
