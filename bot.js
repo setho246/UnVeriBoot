@@ -72,8 +72,7 @@ client.on('guildMemberRemove', member => {
  * This method kicks any guildMembers with the unverified role who joined more than a week ago.
  */
 function purgeOld() {
-	let d = new Date();
-	if(d.getUTCDay() === 1) { //only kick on a monday
+
 		var server = client.guilds.get(process.env.SERVER_ID)
 		var members = server.roles.get(process.env.UNVERI_ID).members.map(m => m) //Builds array of all unverified
 
@@ -89,6 +88,5 @@ function purgeOld() {
 												.setDescription("Just kicked " + a + " unverified members"))
 
 	}
-}
 
 client.login(process.env.BOT_TOKEN);
