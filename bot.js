@@ -65,7 +65,7 @@ client.on('message', message => {
 })
 
 client.on('guildMemberRemove', member => {
-	
+
 })
 
 /**
@@ -73,20 +73,20 @@ client.on('guildMemberRemove', member => {
  */
 function purgeOld() {
 
-		var server = client.guilds.get(process.env.SERVER_ID)
-		var members = server.roles.get(process.env.UNVERI_ID).members.map(m => m) //Builds array of all unverified
+	var server = client.guilds.get(process.env.SERVER_ID)
+	var members = server.roles.get(process.env.UNVERI_ID).members.map(m => m) //Builds array of all unverified
 
-		var filtered = members.filter(function (member) {	//Build array of all unverified who are more than a week old
-			return Date.now() - 604800000 > member.joinedTimestamp
-		})
-		let a = filtered.length
-		filtered.forEach(member => { //Kicks all of the filtered members
-			member.kick()
-		});
-		server.channels.get(process.env.KICK_REPORT).send(new Discord.RichEmbed()
-												.setTitle('Weekly Boot').setColor('RED')
-												.setDescription("Just kicked " + a + " unverified members"))
+	var filtered = members.filter(function (member) {	//Build array of all unverified who are more than a week old
+		return Date.now() - 604800000 > member.joinedTimestamp
+	})
+	let a = filtered.length
+	filtered.forEach(member => { //Kicks all of the filtered members
+		//member.kick()
+	});
+	server.channels.get(process.env.KICK_REPORT).send(new Discord.RichEmbed()
+		.setTitle('Weekly Boot').setColor('RED')
+		.setDescription("Just kicked " + a + " unverified members"))
 
-	}
+}
 
 client.login(process.env.BOT_TOKEN);
