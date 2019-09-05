@@ -81,7 +81,7 @@ function purgeOld() {
 	})
 	let a = filtered.length
 	filtered.forEach(member => { //Kicks all of the filtered members
-		//member.kick()
+		member.kick()
 	});
 	server.channels.get(process.env.KICK_REPORT).send(new Discord.RichEmbed()
 		.setTitle('Weekly Boot').setColor('RED')
@@ -89,4 +89,4 @@ function purgeOld() {
 
 }
 
-client.login(process.env.BOT_TOKEN);
+client.login(process.env.BOT_TOKEN); 
