@@ -77,7 +77,7 @@ function purgeOld() {
 	var members = server.roles.get(process.env.UNVERI_ID).members.map(m => m) //Builds array of all unverified
 
 	var filtered = members.filter(function (member) {	//Build array of all unverified who are more than a week old
-		return Date.now() - 604800000 > member.joinedTimestamp
+		return (Date.now() - 604800000 > member.joinedTimestamp) && (Date.now() - 1209600000 < member.joinedTimestamp) 
 	})
 	let a = filtered.length
 	filtered.forEach(member => { //Kicks all of the filtered members
